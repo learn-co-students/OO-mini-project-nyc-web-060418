@@ -34,13 +34,11 @@ class User
   end
 
   def top_three_recipes
-    recipes_helper.map do |recipe_card|
-      recipe_card.rating
-    end.max(3)
+    top_recipe_helper[0..2].collect {|recipe_card| recipe_card.recipe}
   end
 
   def most_recent_recipe
-    recipes_helper.sort { |a, b| b.date.to_i <=> a.date.to_i }.shift
+    recipes_helper.sort { |a, b| b.date.to_i <=> a.date.to_i }.shift(3)
   end
 
 
@@ -52,5 +50,8 @@ class User
     end
   end
 
+  def top_recipe_helper
+    recipes_helper.sort {|a, b| b.rating <=> a.rating}
+  end
 
 end
