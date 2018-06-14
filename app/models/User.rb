@@ -69,6 +69,17 @@ class User
     RecipeCard.all[-1].recipe
   end
 
+  def safe_recipes
+    array = []
+
+    RecipeIngredient.all.each do |ri|
+      # binding.pry
+      if !(allergens.include?(ri.ingredient))
+        array << ri.recipe
+      end
+    end
+    array.uniq
+  end
 
 
 end
